@@ -296,4 +296,28 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Send crash data to the EarTrumpet team</value>
   </data>
+  <data name="SettingsVolumeTargetAlt" xml:space="preserve">
+    <value>Alt + Volume</value>
+  </data>
+  <data name="SettingsVolumeTargetControl" xml:space="preserve">
+    <value>Control + Volume</value>
+  </data>
+  <data name="SettingsVolumeTargetNone" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="SettingsVolumeTargetShift" xml:space="preserve">
+    <value>Shift + Volume</value>
+  </data>
+  <data name="VolumeTargetMenuText" xml:space="preserve">
+    <value>Volume Controls</value>
+  </data>
+  <data name="VolumeTargetText" xml:space="preserve">
+    <value>You can set individual devices or applications to have their volume adjusted when the keyboard volume control is used, with or without modifiers.</value>
+  </data>
+  <data name="VolumeTargetNoneText" xml:space="preserve">
+    <value>None (use system defaults)</value>
+  </data>
+  <data name="VolumeTargetDisabledText" xml:space="preserve">
+    <value>(unavailable)</value>
+  </data>
 </root>

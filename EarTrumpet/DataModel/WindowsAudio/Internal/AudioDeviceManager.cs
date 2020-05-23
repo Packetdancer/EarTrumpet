@@ -151,6 +151,67 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
+        public static bool StreamIdEquals(string streamId1, string streamId2)
+        {
+            if (streamId1 == streamId2) return true;
+            if (streamId1 == null || streamId2 == null) return false;
+
+            // Trim process ID off the end.
+            if (streamId1.Contains("|1%b")) streamId1 = streamId1.Substring(0, streamId1.IndexOf("|1%b"));
+            if (streamId2.Contains("|1%b")) streamId2 = streamId2.Substring(0, streamId1.IndexOf("|1%b"));
+
+            return streamId1 == streamId2;
+        }
+
+        public INamedStreamWithVolumeControl GetStreamById(string streamId, IAudioDeviceSession parent = null)
+        {
+            if (parent != null)
+            {
+                if (parent.Children != null)
+                {
+                    foreach (IAudioDeviceSession session in parent.Children)
+                    {
+                        if (StreamIdEquals(session.Id, streamId))
+                        {
+                            return session;
+                        }
+                        INamedStreamWithVolumeControl result = GetStreamById(streamId, session);
+                        if (result != null)
+                        {
+                            return result;
+                        }
+                    }
+                }
+                return null;
+            }
+
+            foreach (IAudioDevice device in this.Devices)
+            {
+                if (device.Id == streamId)
+                {
+                    return device;
+                }
+                if (device.Groups != null)
+                {
+                    foreach (IAudioDeviceSession session in device.Groups)
+                    {
+                        if (StreamIdEquals(session.Id, streamId))
+                        {
+                            return session;
+                        }
+
+                        INamedStreamWithVolumeControl result = GetStreamById(streamId, session);
+                        if (result != null)
+                        {
+                            return result;
+                        }
+                    }
+                }
+            }
+
+            return null;            
+        }
+
         public void MoveHiddenAppsToDevice(string appId, string id)
         {
             foreach (var device in _devices)

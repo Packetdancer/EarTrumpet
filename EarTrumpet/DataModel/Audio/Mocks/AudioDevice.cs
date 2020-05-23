@@ -19,11 +19,15 @@ namespace EarTrumpet.DataModel.Audio.Mocks
 
         public string IconPath => null;
 
+        public bool IsDesktopApp => false;
+
         public IAudioDeviceManager Parent { get; }
 
         public ObservableCollection<IAudioDeviceSession> Groups { get; } = new ObservableCollection<IAudioDeviceSession>();
 
         public string Id { get; }
+
+        public bool IsChild { get => false; }
 
         private bool _isMuted;
         public bool IsMuted

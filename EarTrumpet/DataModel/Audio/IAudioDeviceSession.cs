@@ -4,15 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel.Audio
 {
-    public interface IAudioDeviceSession : IStreamWithVolumeControl
+    public interface IAudioDeviceSession : INamedStreamWithVolumeControl
     {
         IEnumerable<IAudioDeviceSessionChannel> Channels { get; }
         IAudioDevice Parent { get; }
-        string DisplayName { get; }
         string ExeName { get; }
         uint BackgroundColor { get; }
-        string IconPath { get; }
-        bool IsDesktopApp { get; }
         bool IsSystemSoundsSession { get; }
         int ProcessId { get; }
         string AppId { get; }

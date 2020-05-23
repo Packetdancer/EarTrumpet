@@ -1,9 +1,15 @@
-﻿using EarTrumpet.DataModel.Storage;
+﻿using Bugsnag.Payload;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using Keys = System.Windows.Forms.Keys;
 
 namespace EarTrumpet
 {
@@ -15,6 +21,13 @@ namespace EarTrumpet
         public event Action SettingsHotkeyTyped;
 
         private ISettingsBag _settings = StorageFactory.GetSettings();
+
+        private VolumeTargetMap _volumeTargets = null;
+
+        public VolumeTargetMap VolumeTargetMap
+        {
+            get => _volumeTargets;
+        }
 
         public void RegisterHotkeys()
         {
@@ -73,6 +86,93 @@ namespace EarTrumpet
                 _settings.Set("SettingsHotkey", value);
                 HotkeyManager.Current.Register(SettingsHotkey);
             }
+        }
+
+        public void InitializeVolumeTargetMapping(IAudioDeviceManager manager)
+        {
+            _volumeTargets = new VolumeTargetMap(manager);
+            LoadVolumeTargets();
+
+            foreach(Keys modifiers in _volumeTargets.RegisteredModifiers)
+            {
+                HotkeyData volumeUp = new HotkeyData(Keys.VolumeUp, modifiers);
+                HotkeyData volumeDown = new HotkeyData(Keys.VolumeDown, modifiers);
+                HotkeyData volumeMute = new HotkeyData(Keys.VolumeMute, modifiers);
+
+                HotkeyManager.Current.Register(volumeUp);
+                HotkeyManager.Current.Register(volumeDown);
+                HotkeyManager.Current.Register(volumeMute);
+            }
+
+            HotkeyManager.Current.KeyPressed += (hotkey) =>
+            {
+                IStreamWithVolumeControl target = _volumeTargets.StreamForModifiers(hotkey.Modifiers);
+                if (target != null)
+                {
+                    float volume = target.Volume;
+
+                    if (hotkey.Key == Keys.VolumeUp)
+                    {
+                        volume += 0.05f;
+                    }
+                    else if (hotkey.Key == Keys.VolumeDown)
+                    {
+                        volume -= 0.05f;
+                    }
+                    else
+                    {
+                        target.IsMuted = !target.IsMuted;
+                        return;
+                    }
+
+                    target.Volume = volume.Bound(0.0f, 1.0f);
+                }
+            };
+        }
+
+        public IStreamWithVolumeControl GetVolumeTargetForModifiers(Keys modifiers)
+        {
+            return _volumeTargets.StreamForModifiers(modifiers);
+        }
+
+        private void SaveVolumeTargets()
+        {
+            _settings.Set("VolumeTargets", _volumeTargets.GetSettingsRepresentation());
+        }
+
+        private void LoadVolumeTargets()
+        {
+            try
+            {
+                List<VolumeTargetMap.StoredMapping> stored = _settings.Get("VolumeTargets", new List<VolumeTargetMap.StoredMapping>());
+                _volumeTargets.RestoreSettingsRepresentation(stored);
+            }
+            catch (System.Exception)
+            {
+                _volumeTargets.RestoreSettingsRepresentation(null);
+            }
+        }
+
+        public void SetVolumeTargetForModifiers(Keys modifiers, VolumeTargetMap.VolumeTarget target)
+        {
+            HotkeyData volumeUp = new HotkeyData(Keys.VolumeUp, modifiers);
+            HotkeyData volumeDown = new HotkeyData(Keys.VolumeDown, modifiers);
+            HotkeyData volumeMute = new HotkeyData(Keys.VolumeMute, modifiers);
+
+            HotkeyManager.Current.Unregister(volumeUp);
+            HotkeyManager.Current.Unregister(volumeDown);
+            HotkeyManager.Current.Unregister(volumeMute);
+
+            _volumeTargets.SetTargetForModifiers(modifiers, target);
+
+            if (target != null)
+            {
+                HotkeyManager.Current.Register(volumeUp);
+                HotkeyManager.Current.Register(volumeDown);
+                HotkeyManager.Current.Register(volumeMute);
+            }
+
+            SaveVolumeTargets();
         }
 
         public bool UseLegacyIcon

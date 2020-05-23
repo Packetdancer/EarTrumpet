@@ -495,6 +495,42 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt + Volume.
+        /// </summary>
+        public static string SettingsVolumeTargetAlt {
+            get {
+                return ResourceManager.GetString("SettingsVolumeTargetAlt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control + Volume.
+        /// </summary>
+        public static string SettingsVolumeTargetControl {
+            get {
+                return ResourceManager.GetString("SettingsVolumeTargetControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string SettingsVolumeTargetNone {
+            get {
+                return ResourceManager.GetString("SettingsVolumeTargetNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift + Volume.
+        /// </summary>
+        public static string SettingsVolumeTargetShift {
+            get {
+                return ResourceManager.GetString("SettingsVolumeTargetShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsWindowText {
@@ -563,6 +599,42 @@ namespace EarTrumpet.Properties {
         public static string VersionText {
             get {
                 return ResourceManager.GetString("VersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (unavailable).
+        /// </summary>
+        public static string VolumeTargetDisabledText {
+            get {
+                return ResourceManager.GetString("VolumeTargetDisabledText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume Controls.
+        /// </summary>
+        public static string VolumeTargetMenuText {
+            get {
+                return ResourceManager.GetString("VolumeTargetMenuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None (use system defaults).
+        /// </summary>
+        public static string VolumeTargetNoneText {
+            get {
+                return ResourceManager.GetString("VolumeTargetNoneText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can set individual devices or applications to have their volume adjusted when the keyboard volume control is used, with or without modifiers..
+        /// </summary>
+        public static string VolumeTargetText {
+            get {
+                return ResourceManager.GetString("VolumeTargetText", resourceCulture);
             }
         }
         

@@ -43,7 +43,8 @@ namespace EarTrumpet.DataModel.Storage.Internal
             }
             else
             {
-                WriteSetting(key, Serializer.ToString(key, value));
+                string serialized = Serializer.ToString(key, value);
+                WriteSetting(key, serialized);
             }
 
             SettingChanged?.Invoke(this, key);

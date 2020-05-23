@@ -3,6 +3,7 @@ using EarTrumpet.DataModel.WindowsAudio.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.Storage.Pickers;
 
 #if DEBUG
 namespace EarTrumpet.DataModel.Audio.Mocks
@@ -33,6 +34,8 @@ namespace EarTrumpet.DataModel.Audio.Mocks
 
         public ObservableCollection<IAudioDeviceSession> Children { get; } = new ObservableCollection<IAudioDeviceSession>();
         public string Id { get; }
+
+        public bool IsChild { get => true; }
 
         private bool _isMuted;
         public bool IsMuted

@@ -66,6 +66,8 @@ namespace EarTrumpet.Interop.Helpers
         {
             if (hotkey.IsEmpty) return;
 
+            if (!_data.ContainsKey(hotkey)) return;
+
             var entry = _data[hotkey];
             entry.RefCount--;
 

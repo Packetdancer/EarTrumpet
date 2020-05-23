@@ -12,5 +12,7 @@ namespace EarTrumpet.DataModel.Audio
         string Kind { get; }
         void UpdatePeakValues();
         void AddFilter(Func<ObservableCollection<IAudioDevice>, ObservableCollection<IAudioDevice>> filter);
+
+        INamedStreamWithVolumeControl GetStreamById(string streamId, IAudioDeviceSession parent = null);
     }
 }

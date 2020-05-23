@@ -69,6 +69,8 @@ namespace EarTrumpet
             deviceManager.Loaded += (_, __) => CompleteStartup();
             _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
 
+            _settings.InitializeVolumeTargetMapping(deviceManager);
+
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
             _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
@@ -214,6 +216,7 @@ namespace EarTrumpet
                 new SettingsPageViewModel[]
                     {
                         new EarTrumpetShortcutsPageViewModel(_settings),
+                        new EarTrumpetVolumeTargetSettingsPageViewModel(_settings, _settings.VolumeTargetMap),
                         new EarTrumpetLegacySettingsPageViewModel(_settings),
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), _settings)
                     });

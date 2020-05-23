@@ -124,9 +124,12 @@ namespace EarTrumpet.UI.Controls
 
         private static string CanonicalizePath(string path)
         {
-            if (Path.GetDirectoryName(path).StartsWith(_systemPath, StringComparison.InvariantCultureIgnoreCase))
+            if (!User32Helper.Is64BitOperatingSystem())
             {
-                path = Path.Combine(_windowsPath, "sysnative", path.Substring(_systemPath.Length + 1));
+                if (Path.GetDirectoryName(path).StartsWith(_systemPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    path = Path.Combine(_windowsPath, "sysnative", path.Substring(_systemPath.Length + 1));
+                }
             }
             return path;
         }

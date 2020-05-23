@@ -142,13 +142,18 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public string Id => _id;
 
+        public bool IsChild { get => false; }
+
         public ObservableCollection<IAudioDeviceSession> Groups { get; }
 
         public string DisplayName => _displayName;
         public string IconPath => _iconPath;
+        public bool IsDesktopApp { get => true; }
         public string EnumeratorName => _enumeratorName;
         public string InterfaceName => _interfaceName;
         public string DeviceDescription => _deviceDescription;
+
+        public override string ToString() { return DisplayName + " (" + Id + ")";  }
 
         public IAudioDeviceManager Parent
         {

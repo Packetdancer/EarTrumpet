@@ -54,6 +54,13 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public string Id => _id;
 
+        public bool IsChild { get => true; }
+
+        public override string ToString()
+        {
+            return "(GROUP) " + DisplayName + " (" + Id + ")";
+        }
+
         public bool IsDesktopApp => _sessions.Count > 0 ? _sessions[0].IsDesktopApp : false;
 
         public string AppId { get; private set; }

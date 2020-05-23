@@ -24,6 +24,12 @@ namespace EarTrumpet.Interop.Helpers
             Modifiers = ModifiersToKeys((ModifierKeys)((int)msg.LParam & 0xFFFF));
         }
 
+        public HotkeyData(Keys keypress, Keys modifiers)
+        {
+            Modifiers = modifiers;
+            Key = keypress;
+        }
+
         public HotkeyData() { }
 
         public override string ToString()

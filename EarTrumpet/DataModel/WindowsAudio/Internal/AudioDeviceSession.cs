@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
@@ -112,6 +113,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         public int ProcessId { get; }
 
         public string Id => _id;
+
+        public bool IsChild { get => true; }
 
         public bool IsSystemSoundsSession { get; }
 
@@ -244,6 +247,11 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             {
                 DisplayName = _appInfo.ExeName;
             }
+        }
+
+        public override string ToString()
+        {
+            return DisplayName + " (" + Id + ")";
         }
 
         private void ChooseIconPath(string iconPathFromSession)
