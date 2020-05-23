@@ -134,7 +134,7 @@ namespace EarTrumpet.DataModel.Audio
             private bool _desktopApp = true;
             public bool IsDesktopApp { get => Stream != null ? Stream.IsDesktopApp : _desktopApp; set => _desktopApp = value; }
 
-            public string IconText { get => StreamName != null ? StreamName.Substring(0, 1) : null; }
+            public string IconText { get => StreamName != null ? StreamName.Substring(0, 1).ToUpper() : null; }
 
             public bool Disabled { get
                 {

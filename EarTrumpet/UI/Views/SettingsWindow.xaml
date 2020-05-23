@@ -130,7 +130,7 @@
                                                             <TextBlock Margin="0,-1,0,0"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
-                                                               Theme:Brush.Foreground="Text"
+                                                               Foreground="White"
                                                                FontSize="{DynamicResource Mutable_AppIconTextFontSize}"
                                                                FontWeight="SemiBold"
                                                                Text="{Binding IconText}"
@@ -154,11 +154,11 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" Height="20" Margin="4">
                                                         <ctl:ImageEx x:Name="StreamIcon" SourceEx="{Binding}" Opacity="1" Width="18" Height="18"/>
-                                                        <Border x:Name="PlaceholderIcon" Width="18" Height="18" Visibility="Collapsed">
+                                                        <Border x:Name="PlaceholderIcon" Width="18" Height="18" Visibility="Collapsed" Background="Black">
                                                             <TextBlock Margin="0,-1,0,0"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
-                                                               Theme:Brush.Foreground="Text"
+                                                               Foreground="White"
                                                                FontSize="{DynamicResource Mutable_AppIconTextFontSize}"
                                                                FontWeight="SemiBold"
                                                                Text="{Binding IconText}"
