@@ -165,7 +165,7 @@ namespace EarTrumpet
 
             _volumeTargets.SetTargetForModifiers(modifiers, target);
 
-            if (target != null)
+            if (target != null && target != VolumeTargetMap.VolumeTarget.None)
             {
                 HotkeyManager.Current.Register(volumeUp);
                 HotkeyManager.Current.Register(volumeDown);
